@@ -61,7 +61,7 @@ namespace compito_13_02.models
                     else
                     {
                         Console.WriteLine("Nessun utente loggato. Eseguire il login.");
-                        Login();
+                        Operazioni();
                     }
                     break;
                 case 3:
@@ -83,7 +83,7 @@ namespace compito_13_02.models
                     else
                     {
                         Console.WriteLine("Nessun utente loggato. Effettuare il login per visualizzare la lista accessi.");
-                        Login();
+                        Operazioni();
                     }
                     break;
                 case 5:
