@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,10 +10,11 @@ namespace compito_13_02.models
 {
     public class Utente
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
 
-        public void Operazioni()
+        public string Username { get; set; } = "";
+        public string Password { get; set; } = "";
+ 
+            public void Operazioni()
         {
             Console.WriteLine("============= OPERAZIONI =============");
 
@@ -30,13 +33,16 @@ namespace compito_13_02.models
             {
 
                 Console.WriteLine("Nessuna scelta effettuata, arrivederci!");
-                
+
             }
 
-            switch(scelta)
+            switch (scelta)
             {
                 case 1:
                     Login();
+                    break;
+                case 2:
+                    Logout(); 
                     break;
             }
 
@@ -44,30 +50,50 @@ namespace compito_13_02.models
 
         public void Login()
         {
-            repeat:
+        repeat:
             Console.WriteLine("Imposta il tuo username");
             string user = Console.ReadLine();
-            if (user != "" && user != " ") {
+            if (user != "" && user != " ")
+            {
                 Username = user;
-                Console.WriteLine("Username scelto: " + Username); }
-            else {
+                Console.WriteLine("Username scelto: " + Username);
+            }
+            else
+            {
                 Console.WriteLine("L'username scelto non è valido");
                 goto repeat;
             }
         repeat2:
             Console.WriteLine("Inserisci la tua password: ");
-                string pass = Console.ReadLine();
+            string pass = Console.ReadLine();
             Console.WriteLine("Ripeti password: ");
             string repeatPw = Console.ReadLine();
             if (repeatPw == pass)
             {
-                Console.WriteLine("Password corretta, autenticazione riuscita!");
                 Password = repeatPw;
-            } else
+                Console.WriteLine("Password corretta, autenticazione riuscita!");
+                Operazioni();            }
+            else
             {
                 Console.WriteLine("Le password non coincidono");
                 goto repeat2;
             }
         }
+
+        public void Logout()
+        {
+            if (Username != "" && Password != "")
+            {
+                Username = "";
+                Password = "";
+                Console.WriteLine("Logout eseguito correttamente");
+                Operazioni();
+            } else
+            {
+                Console.WriteLine("Nessun utente loggato, impossibile eseguire il logout.");
+                Operazioni();
+            }
+        }
+
     }
 }
