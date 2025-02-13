@@ -36,7 +36,8 @@ namespace compito_13_02.models
             if (scelta > 5 || scelta == 0)
             {
 
-                Console.WriteLine("Nessuna scelta effettuata, arrivederci!");
+                Console.WriteLine("Nessuna scelta effettuata, scegliere un numero valido.");
+                Operazioni();
 
             }
 
@@ -59,12 +60,20 @@ namespace compito_13_02.models
                     }
                     else
                     {
-                        Console.WriteLine("Nessun utente loggato. Esegui il login.");
+                        Console.WriteLine("Nessun utente loggato. Eseguire il login.");
                         Login();
                     }
                     break;
                 case 3:
-                    DataOra();
+                    if (Username != "" && Password != "")
+                    {
+                        DataOra();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Impossibile verificare data e ora del login, nessun utente loggato.");
+                        Operazioni();
+                    }
                     break;
                 case 4:
                     if (Username != "" && Password != "")
@@ -73,7 +82,7 @@ namespace compito_13_02.models
                     }
                     else
                     {
-                        Console.WriteLine("Nessun utente loggato. Effettua il login per visualizzare la lista accessi.");
+                        Console.WriteLine("Nessun utente loggato. Effettuare il login per visualizzare la lista accessi.");
                         Login();
                     }
                     break;
@@ -150,8 +159,6 @@ namespace compito_13_02.models
                     Console.WriteLine(aut);
                 
             }
-
-
         }
     }
 }
