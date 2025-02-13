@@ -13,8 +13,12 @@ namespace compito_13_02.models
 
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
- 
-            public void Operazioni()
+
+        public DateTime MomentoAutenticazione { get; set; }
+
+
+
+        public void Operazioni()
         {
             Console.WriteLine("============= OPERAZIONI =============");
 
@@ -44,6 +48,15 @@ namespace compito_13_02.models
                 case 2:
                     Logout(); 
                     break;
+                case 3:
+                    DataOra(); 
+                    break;
+                case 4:
+                    ListaAccessi();
+                    break;
+                case 5:
+                    Esci();
+                    break;
             }
 
         }
@@ -56,6 +69,7 @@ namespace compito_13_02.models
             if (user != "" && user != " ")
             {
                 Username = user;
+                MomentoAutenticazione = DateTime.Now;
                 Console.WriteLine("Username scelto: " + Username);
             }
             else
@@ -93,6 +107,30 @@ namespace compito_13_02.models
                 Console.WriteLine("Nessun utente loggato, impossibile eseguire il logout.");
                 Operazioni();
             }
+        }
+
+        public void DataOra()
+        {
+            if (Username != "" && Password != "")
+            {
+                Console.WriteLine("Utente: " + Username + ", Data e ora dell'autenticazione: " + MomentoAutenticazione);
+                Operazioni();
+            } else
+            {
+                Console.WriteLine("Nessun utente autenticato trovato, effettuare il login.");
+                Login();
+            }
+
+        }
+
+        public void ListaAccessi()
+        {
+
+        }
+
+        public void Esci()
+        {
+
         }
 
     }
