@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+using compito_13_02.models;
+
+Utente utente1 = new Utente();
+utente1.Operazioni();
