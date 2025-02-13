@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace compito_13_02.models
 {
-    public class Utente
+    public static class Utente
     {
 
-        public string Username { get; set; } = "";
-        public string Password { get; set; } = "";
+        public static string Username { get; set; } = "";
+        public static string Password { get; set; } = "";
+        public static DateTime MomentoAutenticazione { get; set; }
+        public static List<DateTime> Storico { get; set; } = new List<DateTime>();
 
-        public DateTime MomentoAutenticazione { get; set; }
 
 
-
-        public void Operazioni()
+        public static void Operazioni()
         {
             Console.WriteLine("============= OPERAZIONI =============");
 
@@ -31,7 +31,7 @@ namespace compito_13_02.models
 
             Console.WriteLine("======================================");
 
-            bool boolean = int.TryParse(Console.ReadLine(), out int scelta);
+            int.TryParse(Console.ReadLine(), out int scelta);
 
             if (scelta > 5 || scelta == 0)
             {
@@ -43,25 +43,48 @@ namespace compito_13_02.models
             switch (scelta)
             {
                 case 1:
-                    Login();
+                    if(Username != "" && Password != "")
+                    {
+                        Console.WriteLine("Utente già autenticato.");
+                        Operazioni();
+                    } else
+                    {
+                        Login();
+                    }
                     break;
                 case 2:
-                    Logout(); 
+                    if (Username != "" && Password != "")
+                    {
+                        Logout();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nessun utente loggato. Esegui il login.");
+                        Login();
+                    }
                     break;
                 case 3:
-                    DataOra(); 
+                    DataOra();
                     break;
                 case 4:
-                    ListaAccessi();
+                    if (Username != "" && Password != "")
+                    {
+                        ListaAccessi();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nessun utente loggato. Effettua il login per visualizzare la lista accessi.");
+                        Login();
+                    }
                     break;
                 case 5:
-                    Esci();
+                    Console.WriteLine("Arrivederci!");
                     break;
             }
 
         }
 
-        public void Login()
+        public static void Login()
         {
         repeat:
             Console.WriteLine("Imposta il tuo username");
@@ -70,6 +93,7 @@ namespace compito_13_02.models
             {
                 Username = user;
                 MomentoAutenticazione = DateTime.Now;
+                Storico.Add(MomentoAutenticazione);
                 Console.WriteLine("Username scelto: " + Username);
             }
             else
@@ -86,7 +110,8 @@ namespace compito_13_02.models
             {
                 Password = repeatPw;
                 Console.WriteLine("Password corretta, autenticazione riuscita!");
-                Operazioni();            }
+                Operazioni();
+            }
             else
             {
                 Console.WriteLine("Le password non coincidono");
@@ -94,28 +119,22 @@ namespace compito_13_02.models
             }
         }
 
-        public void Logout()
+        public static void Logout()
         {
-            if (Username != "" && Password != "")
-            {
                 Username = "";
                 Password = "";
                 Console.WriteLine("Logout eseguito correttamente");
                 Operazioni();
-            } else
-            {
-                Console.WriteLine("Nessun utente loggato, impossibile eseguire il logout.");
-                Operazioni();
-            }
         }
 
-        public void DataOra()
+        public static void DataOra()
         {
             if (Username != "" && Password != "")
             {
                 Console.WriteLine("Utente: " + Username + ", Data e ora dell'autenticazione: " + MomentoAutenticazione);
                 Operazioni();
-            } else
+            }
+            else
             {
                 Console.WriteLine("Nessun utente autenticato trovato, effettuare il login.");
                 Login();
@@ -123,15 +142,16 @@ namespace compito_13_02.models
 
         }
 
-        public void ListaAccessi()
+        public static void ListaAccessi()
         {
+            Console.WriteLine(Username + ", ecco lo storico dei tuoi login:");
+            foreach (DateTime aut in Storico)
+            {
+                    Console.WriteLine(aut);
+                
+            }
+
 
         }
-
-        public void Esci()
-        {
-
-        }
-
     }
 }
